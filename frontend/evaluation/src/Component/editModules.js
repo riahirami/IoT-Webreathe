@@ -14,6 +14,7 @@ function EditModule(props) {
     type: "",
     value: "",
   });
+  const url = "http://localhost:8000/api/iothistory";
 
   useEffect(() => {
     axios.get("http://localhost:8000/api/iotmodules/"+id).then((res) => {
@@ -23,9 +24,23 @@ function EditModule(props) {
     });
   }, []);
 
+  function addHistory(data) {
+    
+    axios
+    .post(url, {
+      status: data.status,
+      value: data.value,
+      module: id,
+      type:data.type
+    })
+    .then((res) => {
+      console.log(" history added ");
+    })
+  }
+
   function submit(e) {
     e.preventDefault();
-    
+    addHistory(data)
     axios.put(`http://localhost:8000/api/iotmodules/${id}`, data)
     .then((res) => {
         Modal.success({

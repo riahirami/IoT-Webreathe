@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Modal } from "antd";
 const baseURL = "http://localhost:8000/api/iotmodules/";
 
-function EditModule(props) {
+function History(props) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState({
@@ -16,34 +16,47 @@ function EditModule(props) {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/iotmodules/"+id).then((res) => {
+    axios.get("http://localhost:8000/api/historyofmodule/" + id).then((res) => {
       setData(res.data);
-      console.log("ok module : "+id)
+      console.log(res.data);
     });
   }, []);
 
-  
-
- 
-
   return (
     <>
-      <div className="col-md-4"></div>
-      <h1> Update user</h1>
-      <div className="col-md-8 offset-md-2" style={{ paddingTop: "100px" }}>
-      <ul>
-      <li>{data.id}</li>
-      <li>{data.module}</li>
-      <li>{data.status}</li>
-      <li>{data.value}</li>
-      <li>{data.timestamp}</li>
-
-      
-
-      </ul>
+      <div className="col-md-12" style={{ paddingTop: "100px" }}>
+        <h1> History </h1>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">timestamp</th>
+              <th scope="col">type</th>
+              <th scope="col">status</th>
+              <th scope="col">value</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Array.from(data).map((histo) => {
+              return (
+                <tr key={histo.id}>
+                  <td scope="row">{histo.id}</td>
+                  <td> {histo.timestamp.date}</td>
+                  <td>{histo.type}</td>
+                  {histo.status == "off" ? (
+  <td className="badge badge-dark">{histo.status}</td>
+) : (
+  <td className="badge badge-dark">{histo.status}</td>
+)}
+                  <td>{histo.value}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </>
   );
 }
 
-export default EditModule;
+export default History;
