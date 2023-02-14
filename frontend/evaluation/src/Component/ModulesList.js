@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 
-const baseURL = "http://localhost:8000/api/iotmodules/";
+const baseURL = "http://localhost:8000/api";
 
 function ModulesList() {
   const [modules, setModules] = useState([]);
@@ -24,13 +24,13 @@ function ModulesList() {
   }, []);
 
   function getModules() {
-    axios.get(baseURL).then((response) => {
+    axios.get(baseURL+"/iotmodules").then((response) => {
       setModules(response.data["hydra:member"]);
     });
   }
 
   function getHistory(id) {
-    axios.get(baseURL + id).then((response) => {
+    axios.get(baseURL+"/iotmodules/" + id).then((response) => {
       navigate("/history/" + id);
     });
   }
@@ -41,7 +41,7 @@ function ModulesList() {
 
   function simulateAll() {
     axios
-      .post(`http://localhost:8000/api/simulateall`, {
+      .post(baseURL+"/simulateall", {
         status: data.status,
         value: data.value,
         // module: id,
@@ -57,7 +57,7 @@ function ModulesList() {
     toast("Simulation ...");
 
     axios
-      .post(`http://localhost:8000/api/simulateiot/${id}`, {
+      .post(baseURL+"/simulateiot/"+id, {
         status: data.status,
         value: data.value,
         module: id,
@@ -88,7 +88,7 @@ function ModulesList() {
       okType: "danger",
       cancelText: "No",
       onOk: () => {
-        axios.delete(`http://localhost:8000/api/iotmodules/${id}`).then(() => {
+        axios.delete(baseURL+"/iotmodules/" + id).then(() => {
           getModules();
           navigate("/moduleslist");
           console.log("delete user :  " + id);
@@ -159,17 +159,17 @@ function ModulesList() {
                     update
                   </button>
                   <ToastContainer
-position="bottom-right"
-autoClose={5017}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="dark"
-/>
+                    position="bottom-right"
+                    autoClose={5017}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                  />
                 </td>
                 <td></td>
               </tr>

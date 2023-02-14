@@ -44,10 +44,10 @@ function History(props) {
                   <td> {histo.timestamp.date}</td>
                   <td>{histo.type}</td>
                   {histo.status == "off" ? (
-  <td className="badge badge-dark">{histo.status}</td>
-) : (
-  <td className="badge badge-dark">{histo.status}</td>
-)}
+                    <td className=" text-white bg-danger">{histo.status}</td>
+                  ) : (
+                    <td className=" text-white bg-success">{histo.status}</td>
+                  )}
                   <td>{histo.value}</td>
                 </tr>
               );
