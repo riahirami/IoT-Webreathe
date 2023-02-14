@@ -37,7 +37,7 @@ function ModulesList() {
 
   setInterval(() => {
     simulateAll();
-  }, 60 * 10000);
+  }, 60 * 100000);
 
   function simulateAll() {
     axios

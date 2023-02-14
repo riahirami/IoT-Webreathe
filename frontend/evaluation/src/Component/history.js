@@ -46,7 +46,7 @@ function History(props) {
                   {histo.status == "off" ? (
                     <td className=" text-white bg-danger">{histo.status}</td>
                   ) : (
-                    <td className=" text-white bg-success">{histo.status}</td>
+                    <td className=" text-white bg-info">{histo.status}</td>
                   )}
                   <td>{histo.value}</td>
                 </tr>

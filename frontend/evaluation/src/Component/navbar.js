@@ -1,54 +1,53 @@
 import React, { Component } from "react";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-  function Navbar() {
- 
-    return (
-      <div className="justify-content-center">
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " >
-        
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
+function Navbar() {
+  return (
+    <div className="justify-content-center">
+      <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+          <nav
+            className="sb-sidenav accordion sb-sidenav-dark"
+            id="sidenavAccordion"
           >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
-            <ul className="navbar-nav">
-            <li className="nav-item">
-
-            <Link className="nav-link" to="home">
+            <div className="sb-sidenav-menu">
+              <div className="nav">
+                <a className="nav-link" href="#">
+                  <div className="sb-nav-link-icon">
+                    <i className="fa fa-home"></i>
+                  </div>
+                  <Link className="nav-link" to="home">
                   Home 
                 </Link>
-</li>
-              <li className="nav-item">
-                <Link className="nav-link" to="moduleslist">
+                </a>
+                <a className="nav-link" href="#">
+                  <div className="sb-nav-link-icon">
+                    <i className="fas fa-tachometer-alt"></i>
+                  </div>
+                  <Link className="nav-link" to="moduleslist">
                   Modules list 
                 </Link>
-              </li>
-              <li className="nav-item">
-              <Link className="nav-link" to="addmodules">
+                </a>
+               
+                <a className="nav-link" href="index.html">
+                  <div className="sb-nav-link-icon">
+                    <i className="fa fa-plus-circle"></i>
+                  </div>
+                  <Link className="nav-link" to="addmodules">
                   Add modules 
                 </Link>
-              </li>
-            
-              
-            </ul>
-          </div>
-        </nav>
+                </a>
+              </div>
+            </div>
+            <div className="sb-sidenav-footer">
+              <div className="small">Logged in as:</div>
+              WeBreathe_Iot
+            </div>
+          </nav>
+        </div>
       </div>
-    );
-  }
-
+    </div>
+  );
+}
 
 export default Navbar;
