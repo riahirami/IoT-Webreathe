@@ -21,27 +21,43 @@ function ModulesList() {
 
   useEffect(() => {
     getModules();
+  }, [modules]);
+
+  useEffect(() => {
+    checkOffModules();
   }, []);
 
+  // afficehr tout les modules existante dans la base de donnée
   function getModules() {
-    axios.get(baseURL+"/iotmodules").then((response) => {
+    axios.get(baseURL + "/iotmodules").then((response) => {
       setModules(response.data["hydra:member"]);
     });
   }
-
+  // afficher l'historique des valeurs et d'états des modules
   function getHistory(id) {
-    axios.get(baseURL+"/iotmodules/" + id).then((response) => {
+    axios.get(baseURL + "/iotmodules/" + id).then((response) => {
       navigate("/history/" + id);
     });
   }
 
+  // fonction qui verifier les modules en status "off" pour afficher une notifications
+  function checkOffModules() {
+    axios.get(baseURL + "/modules/off/").then((response) => {
+      for (let i = 0; i < response.data.length; i++) {
+        toast("Modules " + response.data[i].name + " is off !");
+      }
+    });
+  }
+
+  // un appel au fonction de simulation chaque 10min mais
   setInterval(() => {
     simulateAll();
   }, 60 * 100000);
 
+  //une fonction qui fais changer les valeurs et les status de tout les modules aléatoirement
   function simulateAll() {
     axios
-      .post(baseURL+"/simulateall", {
+      .post(baseURL + "/simulateall", {
         status: data.status,
         value: data.value,
         // module: id,
@@ -49,15 +65,18 @@ function ModulesList() {
       })
       .then((res) => {
         console.log(" simulation success ");
-        toast("Simulation ...");
+        checkOffModules();
+
+        toast("Simulation for all modules ...");
       });
   }
 
+  // une fonction pour changer les valeur et le statut du modul qui correspond à l'id passé en paramétres
   function simulateIot(id) {
-    toast("Simulation ...");
+    toast("Executing simulation ...");
 
     axios
-      .post(baseURL+"/simulateiot/"+id, {
+      .post(baseURL + "/simulateiot/" + id, {
         status: data.status,
         value: data.value,
         module: id,
@@ -70,17 +89,19 @@ function ModulesList() {
           okText: "Ok",
           okType: "success",
           onOk: () => {
-            navigate("/moduleslist");
+            checkOffModules();
           },
         });
       });
   }
 
+  // fonction du modification du module
   const updateModules = async (id) => {
     console.warn("id= " + id);
     navigate("/editmodule/" + id);
   };
 
+  // fonction pour supprimer une modules qui exige de valdier la suppression pour l'effectuer
   function deleteModules(id) {
     Modal.confirm({
       title: "Do you want to delete this user ?",
@@ -88,7 +109,7 @@ function ModulesList() {
       okType: "danger",
       cancelText: "No",
       onOk: () => {
-        axios.delete(baseURL+"/iotmodules/" + id).then(() => {
+        axios.delete(baseURL + "/iotmodules/" + id).then(() => {
           getModules();
           navigate("/moduleslist");
           console.log("delete user :  " + id);
@@ -107,6 +128,8 @@ function ModulesList() {
           className="btn btn-warning text-light"
           onClick={() => simulateAll()}
         >
+          {" "}
+          <i class="fa fa-random" aria-hidden="true"></i>
           Simulation
         </button>
         <table className="table table-striped">
@@ -133,34 +156,43 @@ function ModulesList() {
                 <td>{module.value}</td>
                 <td>
                   <button
-                    className="btn btn-dark text-light"
+                    className="btn btn-primary text-light"
                     onClick={() => {
                       simulateIot(module.id);
                     }}
+                    alt="test"
                   >
-                    Simulate
+                    <i class="fa fa-random" aria-hidden="true">
+                      Simulate
+                    </i>
                   </button>
                   <button
-                    className="btn btn-success text-light"
+                    className="btn btn-info text-light"
                     onClick={() => getHistory(module.id)}
                   >
-                    History
+                    <i class="fa fa-history" aria-hidden="true">
+                      History
+                    </i>
                   </button>
                   <button
                     className="btn btn-danger"
                     onClick={() => deleteModules(module.id)}
                   >
-                    delete
+                    <i class="fa fa-times" aria-hidden="true">
+                      delete
+                    </i>
                   </button>
                   <button
-                    className="btn btn-primary text-light"
+                    className="btn btn-dark text-light"
                     onClick={() => updateModules(module.id)}
                   >
-                    update
+                    <i class="fa fa-pencil-square" aria-hidden="true">
+                      update
+                    </i>
                   </button>
                   <ToastContainer
                     position="bottom-right"
-                    autoClose={5017}
+                    autoClose={5000}
                     hideProgressBar={false}
                     newestOnTop={false}
                     closeOnClick
@@ -168,7 +200,7 @@ function ModulesList() {
                     pauseOnFocusLoss
                     draggable
                     pauseOnHover
-                    theme="dark"
+                    theme="light"
                   />
                 </td>
                 <td></td>

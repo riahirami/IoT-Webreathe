@@ -167,6 +167,28 @@ $em->flush();
 return new JsonResponse(null, Response::HTTP_CREATED);
 }
 
+/**
+ * @Route("/api/modules/off", name="modules_off", methods={"GET"})
+ */
+public function getOffModules(): JsonResponse
+{
+    $modules = $this->getDoctrine()->getRepository(Iotmodule::class)->findBy(['status' => 'off']);
+
+    $data = [];
+    foreach ($modules as $module) {
+        $data[] = [
+            'id' => $module->getId(),
+            'name' => $module->getName(),
+            'status' => $module->getStatus(),
+            'type' => $module->getType(),
+            'value' => $module->getValue()
+        ];
+    }
+
+    return new JsonResponse($data, JsonResponse::HTTP_OK);
+}
+
+
 
  /**
  * @Route("/api/moduleshistories/{id}", name="get_iothistory_data")

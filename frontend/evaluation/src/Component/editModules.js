@@ -24,6 +24,7 @@ function EditModule(props) {
     });
   }, []);
 
+  // stocker les donnée du modules a chaque modifications
   function addHistory(data) {
     
     axios
