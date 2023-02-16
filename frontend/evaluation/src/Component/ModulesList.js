@@ -39,7 +39,7 @@ const options = {
       position: 'top' ,
     },
     title: {
-      display: true,
+      display: false,
       text: 'Modules values',
     },
   },
@@ -283,30 +283,18 @@ function ModulesList() {
         </table>
       </div>
       <div className="row">
-      <Line options={options} data={dat} />
-
+      <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-area me-1"></i>
+                                Area Chart
+                            </div>
+                            <div class="card-body">
+                            <Line options={options} data={dat} />
+                              </div>
+                            <div class="card-footer small text-muted"></div>
+                        </div>
       </div>
-      {/* <div className="row">
-        <div className="col-md-12">
-          <div class="card mb-4">
-            <div class="card-header">
-              <i class="fas fa-chart-area me-1"></i>
-              Area Chart
-            </div>
-            <div class="card-body">
-              <LineChart width={1200} height={500} data={modules}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="time" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="value" stroke="#8884d8" />
-              </LineChart>
-            </div>
-            <div class="card-footer small text-muted"></div>
-          </div>
-        </div>
-      </div> */}
+     
     </div>
   );
 }

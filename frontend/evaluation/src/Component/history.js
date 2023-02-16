@@ -32,7 +32,7 @@ const options = {
       position: 'top' ,
     },
     title: {
-      display: true,
+      display: false,
       text: 'Modules Values history',
     },
   },
@@ -96,9 +96,18 @@ function History(props) {
 
   return (
     <>
-        <h2> History </h2>
+        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-area me-1"></i>
+                                History Chart 
+                            </div>
+                            <div class="card-body">
+                            <Line options={options} data={dat} />
+
+                              </div>
+                            <div class="card-footer small text-muted"></div>
+                        </div>
       <div className="col-md-12">
-      <Line options={options} data={dat} />
         <table className="table">
           <thead>
             <tr>
