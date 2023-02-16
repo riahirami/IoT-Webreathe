@@ -51,7 +51,7 @@ function AddModules() {
     <div className="col-md-4">
 
     </div>
-      <h1> Add modules</h1>
+      <h2> Add modules</h2>
     <div className="col-md-12 container" style={{ paddingTop: "50px" }}>
       <form onSubmit={(e) => submit(e)}>
         <div className="form-outline mb-4">

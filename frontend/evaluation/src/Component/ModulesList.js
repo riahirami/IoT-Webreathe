@@ -121,7 +121,7 @@ function ModulesList() {
   if (!modules) return null;
   return (
     <div className="Container-fluid">
-      <h1>Modules list</h1>
+      <h2>Modules list</h2>
       <div className="col-md-4"></div>
       <div className="col-md-12 container" style={{ paddingTop: "50px" }}>
         <button
@@ -129,7 +129,7 @@ function ModulesList() {
           onClick={() => simulateAll()}
         >
           {" "}
-          <i class="fa fa-random" aria-hidden="true"></i>
+          <i className="fa fa-random" aria-hidden="true"></i>
           Simulation
         </button>
         <table className="table table-striped">
@@ -162,7 +162,7 @@ function ModulesList() {
                     }}
                     alt="test"
                   >
-                    <i class="fa fa-random" aria-hidden="true">
+                    <i className="fa fa-random" aria-hidden="true">
                       Simulate
                     </i>
                   </button>
@@ -170,7 +170,7 @@ function ModulesList() {
                     className="btn btn-info text-light"
                     onClick={() => getHistory(module.id)}
                   >
-                    <i class="fa fa-history" aria-hidden="true">
+                    <i className="fa fa-history" aria-hidden="true">
                       History
                     </i>
                   </button>
@@ -178,7 +178,7 @@ function ModulesList() {
                     className="btn btn-danger"
                     onClick={() => deleteModules(module.id)}
                   >
-                    <i class="fa fa-times" aria-hidden="true">
+                    <i className="fa fa-times" aria-hidden="true">
                       delete
                     </i>
                   </button>
@@ -186,7 +186,7 @@ function ModulesList() {
                     className="btn btn-dark text-light"
                     onClick={() => updateModules(module.id)}
                   >
-                    <i class="fa fa-pencil-square" aria-hidden="true">
+                    <i className="fa fa-pencil-square" aria-hidden="true">
                       update
                     </i>
                   </button>

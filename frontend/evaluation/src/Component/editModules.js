@@ -74,7 +74,7 @@ function EditModule(props) {
   return (
     <>
       <div className="col-md-4"></div>
-      <h1> Update user</h1>
+      <h2> Update user</h2>
       <div className="col-md-8 offset-md-2" style={{ paddingTop: "100px" }}>
         <form onSubmit={(e) => submit(e)}>
           <div className="form-outline mb-4">
