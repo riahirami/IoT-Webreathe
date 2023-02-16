@@ -24,7 +24,7 @@
 <img src="https://www.a5sys.com/wp-content/uploads/2021/10/symfony_logo_vertical.png" width="130" height="100"/>
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" width="130" height="100"/>
 <img src="https://cdn2.boryl.fr/2020/12/fd8a25a0-mysql.svg" width="150" height="100"/>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/1200px-Visual_Studio_Code_1.35_icon.svg.png" width="150" height="100"/>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/1200px-Visual_Studio_Code_1.35_icon.svg.png" width="120" height="100"/>
   <img src="https://mms.businesswire.com/media/20210818005151/en/761650/23/postman-logo-vert-2018.jpg" width="150" height="100"/>
 
   
