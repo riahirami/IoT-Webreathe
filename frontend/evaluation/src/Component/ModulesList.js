@@ -7,22 +7,63 @@ import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
   Tooltip,
   Legend,
-} from "recharts";
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 
 
 const baseURL = "http://localhost:8000/api";
 
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top' ,
+    },
+    title: {
+      display: true,
+      text: 'Modules values',
+    },
+  },
+};
+
 function ModulesList() {
   const [modules, setModules] = useState([]);
   const [data, setData] = useState(modules);
+
+  const labels = Array.from(modules).map((module) => module.name);
+
+  const dat = {
+    labels,
+    datasets: [
+      {
+        label: "value",
+        data: Array.from(modules).map((module) => module.value),
+        borderColor: 'rgb(30,144,255)',
+        backgroundColor: 'rgba(30,144,255, 0.5)',
+      }
+     
+    ],
+  };
+
 
   const navigate = useNavigate();
 
@@ -242,6 +283,10 @@ function ModulesList() {
         </table>
       </div>
       <div className="row">
+      <Line options={options} data={dat} />
+
+      </div>
+      {/* <div className="row">
         <div className="col-md-12">
           <div class="card mb-4">
             <div class="card-header">
@@ -261,7 +306,7 @@ function ModulesList() {
             <div class="card-footer small text-muted"></div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
