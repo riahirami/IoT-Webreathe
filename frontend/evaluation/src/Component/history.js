@@ -2,8 +2,42 @@ import axios from "axios";
 import React from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Modal } from "antd";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 const baseURL = "http://localhost:8000/api/iotmodules/";
+
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top' ,
+    },
+    title: {
+      display: true,
+      text: 'Modules Values history',
+    },
+  },
+};
+
 
 function History(props) {
   const { id } = useParams();
@@ -14,13 +48,27 @@ function History(props) {
     type: "",
     value: "",
   });
+  const labels = Array.from(data).map((module) => formatDate(module.timestamp.date));;
 
+  const dat = {
+    labels,
+    datasets: [
+      {
+        label: "value",
+        data: Array.from(data).map((module) => module.value),
+        borderColor: 'rgb(30,144,255)',
+        backgroundColor: 'rgba(30,144,255, 0.5)',
+      }
+     
+    ],
+  };
   useEffect(() => {
     axios.get("http://localhost:8000/api/historyofmodule/" + id).then((res) => {
       setData(res.data);
       Array.from(data).map((histo) => {
         
         
+        console.log(histo);
         // console.log(formatDate(histo.timestamp.date));
       })
     });
@@ -49,7 +97,8 @@ function History(props) {
   return (
     <>
         <h2> History </h2>
-      <div className="col-md-12" style={{ paddingTop: "100px" }}>
+      <div className="col-md-12">
+      <Line options={options} data={dat} />
         <table className="table">
           <thead>
             <tr>

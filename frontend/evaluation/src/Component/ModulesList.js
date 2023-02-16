@@ -6,28 +6,60 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
+
+
 
 const baseURL = "http://localhost:8000/api";
 
 function ModulesList() {
   const [modules, setModules] = useState([]);
-  const [data, setData] = useState({
-    name: "",
-    status: "",
-    type: "",
-    value: "",
-  });
+  const [data, setData] = useState(modules);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     getModules();
+    
   }, [modules]);
 
   useEffect(() => {
     checkOffModules();
   }, []);
 
-  // afficehr tout les modules existante dans la base de donnée
+  function updateData(updatedModule) {
+    const newData = [...data];
+    const moduleIndex = newData.findIndex(
+      (module) => module.name === updatedModule.name
+    );
+    if (moduleIndex !== -1) {
+      newData[moduleIndex].value = updatedModule.value;
+      newData[moduleIndex].time = new Date().toLocaleTimeString();
+      setData(newData);
+    }
+  }
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const updatedModule = {
+        name: modules.name,
+        value: modules.value,
+      };
+      updateData(updatedModule);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  // afficher tout les modules existante dans la base de donnée
   function getModules() {
     axios.get(baseURL + "/iotmodules").then((response) => {
       setModules(response.data["hydra:member"]);
@@ -208,6 +240,27 @@ function ModulesList() {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="row">
+        <div className="col-md-12">
+          <div class="card mb-4">
+            <div class="card-header">
+              <i class="fas fa-chart-area me-1"></i>
+              Area Chart
+            </div>
+            <div class="card-body">
+              <LineChart width={1200} height={500} data={modules}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="time" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="value" stroke="#8884d8" />
+              </LineChart>
+            </div>
+            <div class="card-footer small text-muted"></div>
+          </div>
+        </div>
       </div>
     </div>
   );
